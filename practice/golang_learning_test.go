@@ -28,15 +28,12 @@ func TestGolang(t *testing.T) {
 		for i := 0; i < 100; i++ {
 			go func(i int) {
 				// TODO numbers에 i 값을 추가해보세요.
-				//numbers = append(numbers, i)
 				numbers[i] = i
 				wg.Done()
 			}(i)
 		}
 		wg.Wait()
-		// sort.Slice(numbers, func(i, j int) bool {
-		// 	return numbers[i] < numbers[j]
-		// })
+
 		var expected []int = make([]int, 100)
 		for i, _ := range expected {
 			expected[i] = i
@@ -56,7 +53,7 @@ func TestGolang(t *testing.T) {
 
 		inputCh := generate()
 		outputCh := make(chan int, 3)
-		go func(inputCh <-chan int) {
+		go func() {
 			for {
 				select {
 				case value, ok := <-inputCh:
@@ -68,7 +65,7 @@ func TestGolang(t *testing.T) {
 					}
 				}
 			}
-		}(inputCh)
+		}()
 		log.Println("고루틴 끝남")
 
 		var actual []int
@@ -113,10 +110,10 @@ func TestGolang(t *testing.T) {
 		// context에 key, value를 추가해보세요.
 		// 추가된 key, value를 호출하여 assert로 값을 검증해보세요.
 		// 추가되지 않은 key에 대한 value를 assert로 검증해보세요.
-		ctx := context.TODO()
-		ctx = context.WithValue(ctx, "my key", "my value")
-		assert.Equal(t, ctx.Value("my key"), "my value")
-		assert.Nil(t, ctx.Value("Not in"))
+		ctx := context.Background()
+		ctx = context.WithValue(ctx, "my_key", "my_value")
+		assert.Equal(t, ctx.Value("my_key"), "my_value")
+		assert.Nil(t, ctx.Value("not_exist_key"))
 	})
 }
 
