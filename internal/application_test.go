@@ -1,8 +1,9 @@
 package internal
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateMembership(t *testing.T) {
@@ -16,6 +17,10 @@ func TestCreateMembership(t *testing.T) {
 	})
 
 	t.Run("이미 등록된 사용자 이름이 존재할 경우 실패한다.", func(t *testing.T) {
+		app := NewApplication(*NewRepository(map[string]Membership{"aaa": Membership{ID: "aaa", UserName: "aaa", MembershipType: "naver"}}))
+		req := CreateRequest{"aaa", "naver"}
+		_, err := app.Create(req)
+		assert.NotNil(t, err)
 
 	})
 
