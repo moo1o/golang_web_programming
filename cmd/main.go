@@ -1,5 +1,8 @@
 package main
 
+import "golang_web_programming/internal"
+
 func main() {
-	panic("DELETE ME")
+	server := internal.NewDefaultServer()
+	server.Run()
 }
