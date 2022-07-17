@@ -2,8 +2,10 @@ package internal
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
 	"log"
+
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 const _defaultPort = 8080
@@ -34,5 +36,7 @@ func (s *Server) Routes(e *echo.Echo) {
 
 func RouteMemberships(e *echo.Group, c Controller) {
 	e.GET("/memberships", c.GetByID)
-	e.POST("/memberships", c.Create)
+	e.POST("/memberships", c.Create, middleware.RequestIDWithConfig(middleware.RequestIDConfig{
+		TargetHeader: "X-My-Request-Header",
+	}))
 }

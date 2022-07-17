@@ -1,8 +1,9 @@
 package internal
 
 import (
-	"github.com/labstack/echo"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 type Controller struct {
